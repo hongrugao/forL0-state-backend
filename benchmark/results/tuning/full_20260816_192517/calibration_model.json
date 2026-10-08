@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "evidence_label": "simulation/model",
+  "model_scope": "memory-cost calibration; not a real workload measurement",
+  "target_calibration": "/home/shuhao/forL0-state-backend/benchmark/results/profiles/profile_20260816_185729/l0_calibration.json",
+  "target_calibration_sha256": "7ae594b01fff259699bcfa8595767cdf654f9759f232336b82c0a199585e9265",
+  "local_calibration": "/home/shuhao/forL0-state-backend/benchmark/results/tuning/full_20260816_192517/profile/dram_calibration.json",
+  "local_calibration_sha256": "c21c9ab3e91c54eacce7e7b37417be63aa0e9ce1c2c1126b9555364fc4e77781",
+  "target_vs_local_hash_compute_ratio": 1.2882913605650574,
+  "rows": [
+    {
+      "working_set_bytes": 65536,
+      "target_l0_random_read_ns": 2.072,
+      "target_heap_random_read_ns": 2.141,
+      "local_heap_random_read_ns": 2.238,
+      "target_l0_vs_target_heap_latency_ratio": 0.9677720691265764,
+      "target_heap_vs_local_heap_latency_ratio": 0.9566577301161752,
+      "target_l0_vs_local_heap_latency_ratio": 0.9258266309204647,
+      "target_l0_read_gib_s": 24.512,
+      "target_heap_read_gib_s": 24.512,
+      "local_heap_read_gib_s": 21.995
+    },
+    {
+      "working_set_bytes": 1048576,
+      "target_l0_random_read_ns": 4.382,
+      "target_heap_random_read_ns": 5.985,
+      "local_heap_random_read_ns": 14.385,
+      "target_l0_vs_target_heap_latency_ratio": 0.7321637426900584,
+      "target_heap_vs_local_heap_latency_ratio": 0.416058394160584,
+      "target_l0_vs_local_heap_latency_ratio": 0.3046228710462287,
+      "target_l0_read_gib_s": 23.874,
+      "target_heap_read_gib_s": 23.959,
+      "local_heap_read_gib_s": 19.706
+    }
+  ],
+  "parallel_read_rows": [
+    {
+      "workers": 1,
+      "target_l0_gib_s": 11.532,
+      "target_heap_gib_s": 19.136,
+      "local_heap_gib_s": 10.527,
+      "target_l0_vs_local_heap_bandwidth_ratio": 1.0954687945283557
+    },
+    {
+      "workers": 2,
+      "target_l0_gib_s": 13.637,
+      "target_heap_gib_s": 32.382,
+      "local_heap_gib_s": 20.543,
+      "target_l0_vs_local_heap_bandwidth_ratio": 0.6638270943873826
+    },
+    {
+      "workers": 4,
+      "target_l0_gib_s": 10.475,
+      "target_heap_gib_s": 26.929,
+      "local_heap_gib_s": 21.039,
+      "target_l0_vs_local_heap_bandwidth_ratio": 0.4978848804600979
+    }
+  ],
+  "hotset_pressure_rows": [
+    {
+      "requested_active_bytes": 1048576,
+      "actual_active_bytes": 786432,
+      "sets": 4096,
+      "init_ns_per_set": 2.566,
+      "lookup_ns_per_op": 7.44,
+      "update_ns_per_op": 5.363
+    },
+    {
+      "requested_active_bytes": 2097152,
+      "actual_active_bytes": 1572864,
+      "sets": 8192,
+      "init_ns_per_set": 1.625,
+      "lookup_ns_per_op": 9.465,
+      "update_ns_per_op": 5.369
+    },
+    {
+      "requested_active_bytes": 4194304,
+      "actual_active_bytes": 3145728,
+      "sets": 16384,
+      "init_ns_per_set": 1.576,
+      "lookup_ns_per_op": 11.687,
+      "update_ns_per_op": 5.396
+    },
+    {
+      "requested_active_bytes": 6291456,
+      "actual_active_bytes": 6291456,
+      "sets": 32768,
+      "init_ns_per_set": 1.837,
+      "lookup_ns_per_op": 12.277,
+      "update_ns_per_op": 5.732
+    }
+  ],
+  "coverage": {
+    "dense_working_set_bytes": [
+      65536,
+      1048576
+    ],
+    "parallel_workers": [
+      1,
+      2,
+      4
+    ],
+    "hotset_active_bytes": [
+      786432,
+      1572864,
+      3145728,
+      6291456
+    ]
+  }
+}

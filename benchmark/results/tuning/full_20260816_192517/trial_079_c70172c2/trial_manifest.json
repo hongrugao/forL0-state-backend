@@ -1,0 +1,51 @@
+{
+  "evidence_label": "simulation/model",
+  "finished_at": "2026-08-16T11:26:14.762208+00:00",
+  "model_inputs": {
+    "hotset_pressure_factor": 0.7529933615984483,
+    "target_l0_vs_heap_latency_speedup": 1.3658146964856233,
+    "target_l0_vs_heap_parallel_bandwidth_ratio": 0.42112902229633753,
+    "target_vs_local_hash_compute_ratio": 1.2882913605650574,
+    "working_set_bytes": 1048576
+  },
+  "model_notes": "Calibration-informed response model for candidate screening only; not real-online throughput evidence.",
+  "objective": 1.0722120508182902,
+  "parameters": {
+    "initial_table_capacity": 2048,
+    "l0_cache_size": "256mb",
+    "l0_memory_max_size": "1280mb",
+    "main_table_load_factor_threshold": 0.875,
+    "max_table_capacity": 4194304
+  },
+  "predicted_throughput": {
+    "C01": 270432.0,
+    "C02": 304732.31475101545,
+    "C03": 297986.0,
+    "C04": 334276.0455992626,
+    "C05": 325540.0,
+    "C06": 363819.77644750976,
+    "C07": 353094.0,
+    "C08": 393363.50729575695,
+    "N01": 77554.0,
+    "N02": 97926.19881328526,
+    "N03": 105108.0,
+    "N04": 127469.92966153243,
+    "N05": 132662.0,
+    "N06": 157013.66050977958,
+    "N07": 160216.0,
+    "N08": 186557.39135802677,
+    "N09": 187770.0,
+    "N10": 216101.12220627393,
+    "N11": 215324.0,
+    "N12": 245644.8530545211,
+    "N13": 242878.0,
+    "N14": 275188.58390276827,
+    "W01": 50000.0,
+    "W02": 68382.4679650381
+  },
+  "schema_version": 1,
+  "stable": true,
+  "started_at": "2026-08-16T11:26:14.761619+00:00",
+  "status": "complete",
+  "trial": "trial_079_c70172c2"
+}

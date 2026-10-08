@@ -1,0 +1,63 @@
+{
+  "command": [
+    "/home/shuhao/forL0-state-backend/benchmark/results/tuning/full_20260816_192517/profile/.l0_calibrate",
+    "-",
+    "/home/shuhao/forL0-state-backend/benchmark/results/tuning/full_20260816_192517/profile/dram_calibration.partial.json",
+    "33554432",
+    "simulation/model"
+  ],
+  "cpu_hash_mix_mops_s": 173.009,
+  "curve_repeats": 3,
+  "evidence_label": "simulation/model",
+  "finished_at": "2026-08-16T11:26:14.462870+00:00",
+  "heap": [
+    {
+      "random_read_ns": 2.238,
+      "sequential_read_gib_s": 21.995,
+      "sequential_write_gib_s": 73.982,
+      "working_set_bytes": 65536
+    },
+    {
+      "random_read_ns": 14.385,
+      "sequential_read_gib_s": 19.706,
+      "sequential_write_gib_s": 25.247,
+      "working_set_bytes": 1048576
+    },
+    {
+      "random_read_ns": 46.286,
+      "sequential_read_gib_s": 16.84,
+      "sequential_write_gib_s": 18.775,
+      "working_set_bytes": 8388608
+    },
+    {
+      "random_read_ns": 76.267,
+      "sequential_read_gib_s": 12.187,
+      "sequential_write_gib_s": 16.714,
+      "working_set_bytes": 33554432
+    }
+  ],
+  "heap_parallel_read_scaling": [
+    {
+      "sequential_read_gib_s": 10.527,
+      "workers": 1
+    },
+    {
+      "sequential_read_gib_s": 20.543,
+      "workers": 2
+    },
+    {
+      "sequential_read_gib_s": 21.039,
+      "workers": 4
+    }
+  ],
+  "l0": null,
+  "l0_reason": "heap-only mode",
+  "last_stage": "vendor_library_load",
+  "requested_bytes": 33554432,
+  "schema_version": 1,
+  "started_at": "2026-08-16T11:26:13.678908+00:00",
+  "status": "heap-only",
+  "stderr": "",
+  "stdout": "",
+  "tuner_capacity_bytes": 33554432
+}

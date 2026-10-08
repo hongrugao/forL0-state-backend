@@ -1,0 +1,40 @@
+{
+  "cluster_isolated_before_profile": false,
+  "control_revision": "252dd6529e04e7f9957af2992ba5512c4b90696f",
+  "control_worktree_dirty": true,
+  "evidence_label": "simulation/model",
+  "finished_at": "2026-08-16T11:26:14.463608+00:00",
+  "hardware_snapshot": {
+    "path": "hardware_snapshot.json",
+    "returncode": 0,
+    "stderr": ""
+  },
+  "host": "host-192-168-0-6",
+  "l0_probe_strategy": {
+    "allocation_working_sets_mb": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "dense_measurement_limit_mb": 1,
+    "extended_access_pattern": "hotset-sparse",
+    "kind": "production-shaped-process-pool",
+    "minimum_tuner_capacity_mb": 64
+  },
+  "l0_reason": "simulation mode or L0 device/library not detected",
+  "l0_successful_probes": 0,
+  "machine": "aarch64",
+  "probes": [
+    {
+      "file": "dram_calibration.json",
+      "kind": "dram",
+      "status": "heap-only"
+    }
+  ],
+  "profile_mode": "simulation",
+  "python": "/usr/bin/python3",
+  "schema_version": 1,
+  "started_at": "2026-08-16T11:26:11.011483+00:00",
+  "status": "complete"
+}

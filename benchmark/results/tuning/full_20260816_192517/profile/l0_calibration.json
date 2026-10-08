@@ -1,0 +1,7 @@
+{
+  "evidence_label": "simulation/model",
+  "reason": "simulation mode or L0 device/library not detected",
+  "schema_version": 1,
+  "status": "unavailable",
+  "successful_probes": 0
+}
