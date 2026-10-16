@@ -6,24 +6,25 @@ SIGMOD 2027 Industrial Track draft.
 ## Files
 
 - `briskstate_sigmod_industry.tex`: ACM `sigconf` source, including the three
-  system diagrams and all evaluation tables.
+  system diagrams, the motivation-study placeholder, and all evaluation tables.
 - `briskstate_sigmod_industry.bib`: bibliography used by the paper.
 - `ACM-Reference-Format.bst`: bibliography style retained locally so the paper
   can be compiled in an offline environment.
-- `forl0_sigmod_industry.pdf`: Tectonic-compiled review PDF.
+- `acmart.cls`: local ACM proceedings class retained for offline compilation.
+- `forl0_sigmod_industry.pdf`: compiled review PDF.
 
 ## Build
 
-The verified build used Tectonic 0.17.0:
+The current draft can be built with `latexmk`:
 
 ```text
-tectonic -X compile briskstate_sigmod_industry.tex --outdir build --keep-logs
+latexmk -pdf -interaction=nonstopmode -halt-on-error briskstate_sigmod_industry.tex
 ```
 
-The verified output is seven pages, uses the ACM proceedings format, and has no
-undefined references or citations. The only remaining TeX layout diagnostic is
-a 1.44 pt vertical overfull box at the final page break; visual inspection found
-no clipping, overlap, or isolated float page.
+The verified output is eight pages, uses the ACM proceedings format, and has no
+undefined references or citations. A minimal TeX installation may warn that the
+optional Libertine, `zi4`, and `newtxmath` font packages are unavailable; the
+source conditionally disables font expansion in that fallback environment.
 
 ## Evidence incorporated
 

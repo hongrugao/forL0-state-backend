@@ -1,3 +1,8 @@
+% The local minimal TeX image may lack ACM's scalable Libertine fonts.
+% Disable font expansion only for that fallback so standard builds still work.
+\IfFileExists{libertine.sty}{}{%
+  \PassOptionsToPackage{expansion=false}{microtype}%
+}
 \documentclass[sigconf]{acmart}
 
 \usepackage{amsmath}
@@ -56,6 +61,53 @@ We evaluate \system on Intel x86\_64 and Kunpeng aarch64 servers. All 184 Java a
 Stateful stream processors maintain continuously changing per-key state for aggregation, joins, windows, timers, and online feature computation. Apache Flink exposes this state through a uniform API and couples it with consistent checkpointing and key-group-based redistribution \cite{carbone2015flink,carbone2017statemanagement}. The abstraction is operationally valuable, but it hides a physical question that becomes decisive at scale: how many objects, pointers, cache lines, and heap-management actions are required for one logical state access?
 
 Flink's heap backend provides a short software path when state is small, but large object graphs increase pointer chasing and garbage-collection pressure. RocksDB bounds JVM heap use, yet introduces serialization, compaction, and storage-engine overhead \cite{rocksdb}. This leaves a useful middle ground for latency-sensitive workloads whose state should remain memory-resident: retain Flink's API and fault-tolerance contract, but organize the state as a compact native data structure.
+
+\begingroup
+\color{red}
+\paragraph{Motivation study.}
+Figure~\ref{fig:motivation-schematic} summarizes a controlled ValueState read--modify--write study after the state footprint reaches steady state. With ample heap headroom, per-operation access cost remains low while the active working set fits in the last-level cache (LLC), but increases by \textbf{TBD} once the working set outgrows the LLC, together with higher LLC-miss and memory-stall rates. Independently, at a fixed state footprint, GC time and pause cost rise sharply after the post-GC live heap exceeds \textbf{TBD}\% of \texttt{-Xmx}. These results expose a two-stage scalability problem: locality loss penalizes state access before memory exhaustion, and insufficient allocation headroom then turns heap-resident state into an operational-stability risk. This motivates a state backend that reduces both state-access overhead and JVM garbage-collection pressure. The current red curves and values are placeholders pending repeated-run measurements.
+\endgroup
+
+\begin{figure*}[t]
+\centering
+\color{red}
+\begin{tikzpicture}[font=\small, line cap=round, line join=round]
+  % Panel (a): state-access cost as the working set outgrows LLC.
+  \begin{scope}[xshift=0cm]
+    \draw[->, thick, red] (0,0) -- (6.6,0)
+      node[below=8pt, midway, align=center] {Resident state working set / LLC capacity};
+    \draw[->, thick, red] (0,0) -- (0,3.35)
+      node[above, rotate=90, anchor=south] {State-access cost};
+    \draw[dashed, red!75] (2.55,0) -- (2.55,3.0);
+    \node[above, align=center] at (2.55,3.0) {working set\\exceeds LLC};
+    \draw[very thick, red]
+      (0.25,0.55) .. controls (1.15,0.57) and (1.85,0.62) .. (2.45,0.78)
+      .. controls (3.25,1.05) and (4.2,1.75) .. (6.15,2.85);
+    \node[align=center] at (1.2,1.15) {mostly\\cache-resident};
+    \node[align=center] at (4.85,2.15) {more dependent misses\\and memory stalls};
+    \node[font=\bfseries] at (3.3,-1.08) {(a) Access-overhead regime};
+  \end{scope}
+
+  % Panel (b): GC cost as the live heap approaches the JVM limit.
+  \begin{scope}[xshift=9.0cm]
+    \draw[->, thick, red] (0,0) -- (6.6,0)
+      node[below=8pt, midway, align=center] {Post-GC live heap / JVM \texttt{-Xmx}};
+    \draw[->, thick, red] (0,0) -- (0,3.35)
+      node[above, rotate=90, anchor=south] {GC time and pause cost};
+    \draw[dashed, red!75] (4.35,0) -- (4.35,3.0);
+    \node[above, align=center] at (4.35,3.0) {low allocation\\headroom};
+    \draw[very thick, red]
+      (0.25,0.35) .. controls (2.2,0.36) and (3.35,0.43) .. (4.15,0.72)
+      .. controls (4.8,1.05) and (5.25,1.95) .. (6.1,3.05);
+    \node[align=center] at (1.55,0.92) {ample\\headroom};
+    \node[align=center] at (5.25,1.45) {frequent GC and\\longer pauses};
+    \node[font=\bfseries] at (3.3,-1.08) {(b) GC-pressure regime};
+  \end{scope}
+\end{tikzpicture}
+\caption{\textcolor{red}{Motivation study. (a) State-access cost as the active working set outgrows the LLC. (b) GC time and pause cost as the post-GC live heap approaches the JVM heap limit. Together, the two regimes motivate reducing both state-access overhead and JVM garbage-collection pressure. Curves are placeholders pending measured data.}}
+\Description{Two red schematic plots. State-access cost rises after the state working set exceeds the last-level cache, and garbage-collection cost rises sharply when the live heap approaches the JVM heap limit.}
+\label{fig:motivation-schematic}
+\end{figure*}
 
 This design problem arose in a joint effort to accelerate Flink Heap State on heterogeneous processors, with a particular interest in Kunpeng's user-managed L0 cache partition. Early prototypes showed that placing a small cache above an object-heavy heap table was insufficient: the main table, JNI boundary, type conversions, and snapshot path still determined most costs. The resulting system, \system, therefore treats hardware caching as one component of a complete state backend rather than as an isolated optimization.
 
